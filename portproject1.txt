@@ -1,0 +1,84 @@
+drop table coviddeath
+create table Coviddeath(
+iso_code varchar,
+continent varchar,
+loca_tion varchar,
+	start_date date,
+	population bigint,
+	total_cases bigint,
+	new_cases bigint,
+	new_case_smoothed decimal,
+	total_deaths bigint,
+	new_deaths bigint,
+	new_deaths_smoothed decimal,
+	total_cases_per_million decimal,
+	new_cases_smoothed_per_million decimal,
+	total_deaths_per_million decimal,
+	new_deaths_per_million decimal,
+	new_deaths_smoothed_per_million decimal,
+	reproduction_rate decimal,
+	icu_patients decimal,
+	icu_patients_per_million decimal,
+	hosp_patients decimal,
+	hosp_patients_per_million decimal,
+	weekly_icu_admissions decimal,
+	weekly_icu_admissions_per_million decimal,
+	weekly_hosp_admissions decimal,
+	weekly_hosp_admissions_per_million decimal,
+	u decimal
+);
+
+copy  coviddeath from 'F:\SQL\data2\CovidDeaths(Solve).csv' delimiter ','csv header ;
+select * from coviddeath;
+drop table covidvacine;
+create table covidvacine(
+iso_code varchar,
+	continent varchar,
+	loca_tion varchar,
+	start_date date,
+	new_test bigint,
+	total_tests bigint,
+	total_test_per_thousand decimal,
+	new_test_per_thousand decimal,
+	new_test_smoothed bigint,
+	new_test_smoothed_per_thousand decimal,
+	positive_rate decimal,
+	test_per_case decimal,
+	test_unit varchar,
+	total_vaccinations bigint,
+	people_vaccinated bigint,
+	people_fully_vacinated bigint,
+	new_vaccinations bigint,
+	new_vaccinations_smoothed bigint,
+	total_vaccinations_per_hundred decimal,
+	people_vaccinated_per_hundred decimal,
+	people_fully_vaccinated_per_hundred decimal,
+	new_vaccinaton_smoothed_per_million decimal,
+	stringency_index decimal,
+	population_density decimal,
+	median_age decimal,
+	age_65_older decimal,
+	age_70_older decimal,
+	gdp_per_captia decimal,
+	extreme_poverty decimal,
+	cardiovasc_death_rate decimal,
+	diabetes_prevalence decimal,
+	female_smokers decimal,
+	male_smokers decimal,
+	handwashing_facilities decimal,
+	hospital_beds_per_thousands decimal,
+	life_expectancy decimal,
+	human_development_index decimal
+	
+);
+copy covidvacine from 'F:\SQL\data2\CovidVacinations(Solve).csv' delimiter ',' csv header;
+
+--select data we are going to be use
+select loca_tion,start_date,total_cases,new_cases,total_deaths,population from coviddeath
+order by loca_tion,start_date;
+
+--Looking at total cases vs total deaths
+select loca_tion,start_date,total_cases,total_deaths,(total_deaths/cast(total_cases as float))*100  as percentage_death from coviddeath
+order by 1,2;
+
+
